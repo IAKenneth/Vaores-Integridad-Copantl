@@ -6,37 +6,37 @@ const ValuesSection = () => {
     {
       icon: <Shield className="w-8 h-8" />,
       title: "INTEGRIDAD",
-      description: "Actuar con honestidad y transparencia en cada decisión, manteniendo coherencia entre valores y acciones.",
+      description: "La base de toda confianza organizacional. Actuar con honestidad absoluta, manteniendo coherencia entre principios y acciones en cada decisión empresarial.",
       color: "from-cyan-400 to-blue-500"
     },
     {
       icon: <Heart className="w-8 h-8" />,
       title: "RESPETO",
-      description: "Valorar la dignidad de cada persona, reconociendo las diferencias y promoviendo un ambiente inclusivo.",
+      description: "Reconocer el valor intrínseco de cada individuo. Crear ambientes inclusivos donde la diversidad se celebra y todas las voces son escuchadas y valoradas.",
       color: "from-green-400 to-teal-500"
     },
     {
       icon: <Eye className="w-8 h-8" />,
       title: "TRANSPARENCIA",
-      description: "Comunicar de manera clara y abierta, proporcionando información precisa y accesible para todos.",
+      description: "Comunicación clara y abierta en todos los niveles. Compartir información de manera accesible, construyendo confianza a través de la honestidad comunicativa.",
       color: "from-purple-400 to-pink-500"
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "RESPONSABILIDAD",
-      description: "Asumir las consecuencias de nuestras acciones y comprometernos con el impacto de nuestras decisiones.",
+      description: "Ownership total de nuestras acciones y decisiones. Comprometerse con las consecuencias y el impacto de cada elección en la organización y la sociedad.",
       color: "from-orange-400 to-red-500"
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "EXCELENCIA",
-      description: "Buscar continuamente la mejora y superación, estableciendo estándares altos en todo lo que hacemos.",
+      description: "Búsqueda incansable de la mejora continua. Establecer estándares excepcionales y superar expectativas en cada proyecto y proceso organizacional.",
       color: "from-yellow-400 to-orange-500"
     },
     {
       icon: <Award className="w-8 h-8" />,
       title: "COMPROMISO",
-      description: "Dedicarse completamente a nuestros objetivos y promesas, manteniendo constancia en nuestros esfuerzos.",
+      description: "Dedicación absoluta hacia objetivos compartidos. Mantener constancia y perseverancia, cumpliendo promesas y superando obstáculos con determinación.",
       color: "from-indigo-400 to-purple-500"
     }
   ];
@@ -49,8 +49,8 @@ const ValuesSection = () => {
             NUESTROS VALORES
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Los principios que guían cada acción en nuestra corporación futurista. 
-            Valores que se fortalecen a través del juego y la experiencia interactiva.
+            Los pilares fundamentales que transforman organizaciones y fortalecen culturas corporativas. 
+            Principios que cobran vida a través de experiencias gaming inmersivas.
           </p>
         </div>
 

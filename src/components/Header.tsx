@@ -37,21 +37,19 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleTheme }) => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 group">
-            <img 
-              src="https://cdn.prod.website-files.com/65b975e246a20b9be0bab4bb/65bb86448b365bc357ebd620_Capa_1.svg" 
-              alt="Copantl Logo" 
-              className="h-12 w-auto group-hover:scale-110 transition-transform duration-300"
-            />
+            <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="text-black font-bold text-xl">I</span>
+            </div>
             <div className="flex flex-col">
               <span className={`text-xl font-bold ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                COPANTL
+                INTEGRIDAD CORP
               </span>
               <span className={`text-xs uppercase tracking-wider ${
                 isDarkMode ? 'text-amber-400' : 'text-amber-600'
               }`}>
-                INTEGRIDAD DIGITAL
+                VALORES FUTURISTAS
               </span>
             </div>
           </div>
