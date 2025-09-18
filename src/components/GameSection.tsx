@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Play, Pause, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, RotateCcw, Volume2, VolumeX, Trophy, Star } from 'lucide-react';
+import { useGameData } from '../hooks/useGameData';
+import PlayerLogin from './PlayerLogin';
+import Leaderboard from './Leaderboard';
 
 interface Player {
   x: number;
@@ -18,12 +21,26 @@ interface Obstacle {
 const GameSection = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
+  const gameStartTime = useRef<number>(0);
   const [gameState, setGameState] = useState<'menu' | 'playing' | 'gameOver'>('menu');
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('geometryHighScore') || '0'));
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [stars, setStars] = useState(0);
+  
+  // Hook para manejar datos del juego
+  const {
+    currentPlayer,
+    topPlayers,
+    playerRanking,
+    loading,
+    createOrGetPlayer,
+    saveGameScore,
+    fetchTopPlayers
+  } = useGameData();
   
   const gameSpeed = useRef(8);
   const player = useRef<Player>({ x: 100, y: 300, velocityY: 0, isJumping: false });
@@ -91,17 +108,38 @@ const GameSection = () => {
 
   const startGame = useCallback(() => {
     resetGame();
+    gameStartTime.current = Date.now();
     setGameState('playing');
   }, [resetGame]);
 
-  const gameOver = useCallback(() => {
+  const gameOver = useCallback(async () => {
     setGameState('gameOver');
+    
+    // Calcular duración del juego
+    const gameDuration = Math.floor((Date.now() - gameStartTime.current) / 1000);
+    
+    // Calcular estrellas basadas en la puntuación
+    const earnedStars = Math.min(3, Math.floor(score / 100));
+    setStars(earnedStars);
+    
+    // Guardar puntuación si hay un jugador logueado
+    if (currentPlayer) {
+      await saveGameScore(
+        currentPlayer.id,
+        score,
+        earnedStars,
+        Math.floor(score / 50), // Nivel basado en puntuación
+        gameDuration
+      );
+    }
+    
     if (score > highScore) {
       setHighScore(score);
       localStorage.setItem('geometryHighScore', score.toString());
     }
+    
     playSound(220, 0.8);
-  }, [score, highScore, playSound]);
+  }, [score, highScore, playSound, currentPlayer, saveGameScore]);
 
   const jump = useCallback(() => {
     if (player.current.y >= 300 && !player.current.isJumping) {
@@ -299,129 +337,192 @@ const GameSection = () => {
     };
   }, [gameState, gameLoop]);
 
+  // Manejar login del jugador
+  const handlePlayerLogin = async (name: string, email?: string) => {
+    await createOrGetPlayer(name, email);
+  };
+
+  // Si no hay jugador logueado, mostrar pantalla de login
+  if (!currentPlayer) {
+    return (
+      <section id="juego" className="py-20 relative">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
+              INTEGRIDAD CORP GAME
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Fortalece tus valores mientras superas desafíos. ¡Compite con jugadores de todo el mundo!
+            </p>
+          </div>
+          <PlayerLogin onLogin={handlePlayerLogin} loading={loading} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="juego" className="py-20 relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent mb-4">
-            COPANTL ADVENTURE GAME
+          <h2 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            ¡HOLA {currentPlayer.name.toUpperCase()}!
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Supera obstáculos mientras descubres la excelencia hotelera de Copantl. ¡Cada salto es una experiencia única!
+            Fortalece tus valores mientras superas desafíos. ¡Compite por el primer lugar!
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-amber-500/10 to-yellow-500/10 backdrop-blur-sm border border-amber-500/30 rounded-2xl p-6">
-            {/* Game Stats */}
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center space-x-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-amber-400">{score}</div>
-                  <div className="text-sm text-gray-400">PUNTUACIÓN</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-400">{highScore}</div>
-                  <div className="text-sm text-gray-400">RÉCORD</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => setSoundEnabled(!soundEnabled)}
-                  className="p-2 bg-amber-500/20 hover:bg-amber-500/30 rounded-lg transition-colors duration-300"
-                >
-                  {soundEnabled ? <Volume2 className="w-5 h-5 text-amber-400" /> : <VolumeX className="w-5 h-5 text-gray-400" />}
-                </button>
-                
-                {gameState === 'playing' && (
-                  <button
-                    onClick={() => setGameState('menu')}
-                    className="p-2 bg-yellow-500/20 hover:bg-yellow-500/30 rounded-lg transition-colors duration-300"
-                  >
-                    <Pause className="w-5 h-5 text-yellow-400" />
-                  </button>
-                )}
-                
-                <button
-                  onClick={resetGame}
-                  className="p-2 bg-gray-500/20 hover:bg-gray-500/30 rounded-lg transition-colors duration-300"
-                >
-                  <RotateCcw className="w-5 h-5 text-gray-400" />
-                </button>
-              </div>
-            </div>
-
-            {/* Game Canvas */}
-            <div className="relative">
-              <canvas
-                ref={canvasRef}
-                width={800}
-                height={400}
-                className="w-full border-2 border-amber-500/50 rounded-lg bg-black cursor-pointer"
-                onClick={() => {
-                  if (gameState === 'playing') {
-                    jump();
-                  } else {
-                    startGame();
-                  }
-                }}
-              />
-
-              {/* Game Overlay */}
-              {gameState !== 'playing' && (
-                <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    {gameState === 'menu' ? (
-                      <div>
-                        <h3 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent mb-4">
-                          ¡BIENVENIDO A COPANTL!
-                        </h3>
-                        <p className="text-gray-300 mb-6">Presiona ESPACIO o haz clic para saltar</p>
-                        <button
-                          onClick={startGame}
-                          className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 mx-auto"
-                        >
-                          <Play className="w-5 h-5" />
-                          <span>INICIAR</span>
-                        </button>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Juego Principal */}
+            <div className="lg:col-span-2">
+              <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm border border-cyan-500/30 rounded-2xl p-6">
+                {/* Game Stats */}
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center space-x-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-cyan-400">{score}</div>
+                      <div className="text-sm text-gray-400">PUNTUACIÓN</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-yellow-400">{stars}</div>
+                      <div className="text-sm text-gray-400">ESTRELLAS</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-400">
+                        #{playerRanking?.ranking_position || '?'}
                       </div>
-                    ) : (
-                      <div>
-                        <h3 className="text-4xl font-bold text-red-400 mb-2">¡GAME OVER!</h3>
-                        <p className="text-xl text-gray-300 mb-2">Puntuación: {score}</p>
-                        {score === highScore && (
-                          <p className="text-yellow-400 mb-4">¡NUEVO RÉCORD!</p>
-                        )}
-                        <button
-                          onClick={startGame}
-                          className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 mx-auto"
-                        >
-                          <Play className="w-5 h-5" />
-                          <span>REINTENTAR</span>
-                        </button>
-                      </div>
+                      <div className="text-sm text-gray-400">POSICIÓN</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <button
+                      onClick={() => setShowLeaderboard(!showLeaderboard)}
+                      className="p-2 bg-yellow-500/20 hover:bg-yellow-500/30 rounded-lg transition-colors duration-300"
+                    >
+                      <Trophy className="w-5 h-5 text-yellow-400" />
+                    </button>
+                    
+                    <button
+                      onClick={() => setSoundEnabled(!soundEnabled)}
+                      className="p-2 bg-cyan-500/20 hover:bg-cyan-500/30 rounded-lg transition-colors duration-300"
+                    >
+                      {soundEnabled ? <Volume2 className="w-5 h-5 text-cyan-400" /> : <VolumeX className="w-5 h-5 text-gray-400" />}
+                    </button>
+                    
+                    {gameState === 'playing' && (
+                      <button
+                        onClick={() => setGameState('menu')}
+                        className="p-2 bg-purple-500/20 hover:bg-purple-500/30 rounded-lg transition-colors duration-300"
+                      >
+                        <Pause className="w-5 h-5 text-purple-400" />
+                      </button>
                     )}
+                    
+                    <button
+                      onClick={resetGame}
+                      className="p-2 bg-gray-500/20 hover:bg-gray-500/30 rounded-lg transition-colors duration-300"
+                    >
+                      <RotateCcw className="w-5 h-5 text-gray-400" />
+                    </button>
                   </div>
                 </div>
-              )}
 
-              {/* Motivational Message */}
-              {showMessage && (
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-500/90 to-yellow-500/90 backdrop-blur-sm text-black px-6 py-3 rounded-full border border-white/30 animate-bounce">
-                  <div className="text-center font-bold">{motivationalMessage}</div>
+                {/* Game Canvas */}
+                <div className="relative">
+                  <canvas
+                    ref={canvasRef}
+                    width={800}
+                    height={400}
+                    className="w-full border-2 border-cyan-500/50 rounded-lg bg-black cursor-pointer"
+                    onClick={() => {
+                      if (gameState === 'playing') {
+                        jump();
+                      } else {
+                        startGame();
+                      }
+                    }}
+                  />
+
+                  {/* Game Overlay */}
+                  {gameState !== 'playing' && (
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                      <div className="text-center">
+                        {gameState === 'menu' ? (
+                          <div>
+                            <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                              ¡FORTALECE TUS VALORES!
+                            </h3>
+                            <p className="text-gray-300 mb-6">Presiona ESPACIO o haz clic para saltar</p>
+                            <button
+                              onClick={startGame}
+                              className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 mx-auto"
+                            >
+                              <Play className="w-5 h-5" />
+                              <span>INICIAR</span>
+                            </button>
+                          </div>
+                        ) : (
+                          <div>
+                            <h3 className="text-4xl font-bold text-red-400 mb-2">¡GAME OVER!</h3>
+                            <p className="text-xl text-gray-300 mb-2">Puntuación: {score}</p>
+                            <div className="flex items-center justify-center space-x-1 mb-4">
+                              {[...Array(3)].map((_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`w-6 h-6 ${
+                                    i < stars
+                                      ? 'text-yellow-400 fill-current'
+                                      : 'text-gray-600'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            {score === highScore && (
+                              <p className="text-yellow-400 mb-4">¡NUEVO RÉCORD!</p>
+                            )}
+                            <button
+                              onClick={startGame}
+                              className="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 mx-auto"
+                            >
+                              <Play className="w-5 h-5" />
+                              <span>REINTENTAR</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Motivational Message */}
+                  {showMessage && (
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500/90 to-purple-500/90 backdrop-blur-sm text-white px-6 py-3 rounded-full border border-white/30 animate-bounce">
+                      <div className="text-center font-bold">{motivationalMessage}</div>
+                    </div>
+                  )}
                 </div>
-              )}
+
+                {/* Game Instructions */}
+                <div className="mt-6 text-center">
+                  <p className="text-gray-400 mb-2">
+                    🎮 <span className="text-cyan-400">ESPACIO</span> o <span className="text-cyan-400">CLIC</span> para saltar
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Cada 200 puntos recibirás un mensaje motivacional. ¡Gana estrellas y sube en el ranking!
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Game Instructions */}
-            <div className="mt-6 text-center">
-              <p className="text-gray-400 mb-2">
-                🎮 <span className="text-amber-400">ESPACIO</span> o <span className="text-amber-400">CLIC</span> para saltar
-              </p>
-              <p className="text-sm text-gray-500">
-                Cada 200 puntos recibirás un mensaje motivacional sobre la excelencia de Copantl
-              </p>
+            {/* Leaderboard Sidebar */}
+            <div className={`lg:block ${showLeaderboard ? 'block' : 'hidden'}`}>
+              <Leaderboard 
+                topPlayers={topPlayers}
+                currentPlayerRanking={playerRanking}
+                loading={loading}
+              />
             </div>
           </div>
         </div>
