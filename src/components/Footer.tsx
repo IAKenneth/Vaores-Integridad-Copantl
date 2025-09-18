@@ -6,21 +6,21 @@ const Footer = () => {
 
   const links = {
     company: [
-      { name: 'Sobre Nosotros', href: '#nosotros' },
-      { name: 'Nuestros Valores', href: '#valores' },
-      { name: 'Metodología', href: '#metodologia' },
-      { name: 'Casos de Éxito', href: '#casos' }
+      { name: 'Sobre Copantl', href: '#nosotros' },
+      { name: 'Nuestros Servicios', href: '#servicios' },
+      { name: 'Habitaciones', href: '#habitaciones' },
+      { name: 'Eventos', href: '#eventos' }
     ],
     products: [
-      { name: 'Plataforma Gaming', href: '#juego' },
-      { name: 'Niveles de Valores', href: '#niveles' },
-      { name: 'Evaluaciones', href: '#evaluaciones' },
-      { name: 'Certificaciones', href: '#certificaciones' }
+      { name: 'Centro de Convenciones', href: '#convenciones' },
+      { name: 'Restaurantes', href: '#restaurantes' },
+      { name: 'Spa & Wellness', href: '#spa' },
+      { name: 'Experiencias', href: '#experiencias' }
     ],
     resources: [
-      { name: 'Recursos', href: '#recursos' },
-      { name: 'Documentación', href: '#docs' },
-      { name: 'Blog Integridad', href: '#blog' },
+      { name: 'Reservaciones', href: '#reservas' },
+      { name: 'Galería', href: '#galeria' },
+      { name: 'Blog Copantl', href: '#blog' },
       { name: 'Contacto', href: '#contacto' }
     ]
   };
@@ -39,37 +39,39 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg flex items-center justify-center">
-                <span className="text-black font-bold text-lg">I</span>
-              </div>
+              <img 
+                src="https://cdn.prod.website-files.com/65b975e246a20b9be0bab4bb/65bb86448b365bc357ebd620_Capa_1.svg" 
+                alt="Copantl Logo" 
+                className="h-10 w-auto"
+              />
               <div className="flex flex-col">
                 <span className="text-xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
-                  INTEGRIDAD CORP
+                  COPANTL
                 </span>
                 <span className="text-xs text-gray-400 uppercase tracking-wider">
-                  Valores Corporativos Futuristas
+                  Hotel & Convention Center
                 </span>
               </div>
             </div>
             
             <p className="text-gray-400 mb-6 leading-relaxed max-w-md">
-              Plataforma líder en formación de valores corporativos a través de experiencias 
-              gaming inmersivas. Transformamos la ética empresarial del futuro.
+              Hotel de lujo y centro de convenciones en San Pedro Sula, Honduras. 
+              Ofrecemos experiencias excepcionales con tecnología de vanguardia.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-400">
                 <Mail className="w-4 h-4 text-amber-400" />
-                <span>contacto@integridadcorp.com</span>
+                <span>info@copantl.com</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <Phone className="w-4 h-4 text-amber-400" />
-                <span>+1 (555) 123-4567</span>
+                <span>+504 2550-8080</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <MapPin className="w-4 h-4 text-amber-400" />
-                <span>Ciudad de México, México</span>
+                <span>San Pedro Sula, Honduras</span>
               </div>
             </div>
           </div>
@@ -119,10 +121,10 @@ const Footer = () => {
         <div className="bg-gradient-to-r from-amber-500/10 to-yellow-500/10 backdrop-blur-sm border border-amber-500/30 rounded-2xl p-8 mb-12">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
-              NEWSLETTER INTEGRIDAD
+              OFERTAS EXCLUSIVAS
             </h3>
             <p className="text-gray-400 mb-6">
-              Recibe contenido exclusivo sobre valores corporativos, metodologías innovadoras y casos de éxito.
+              Recibe las mejores ofertas y promociones especiales de Hotel Copantl directamente en tu correo.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
@@ -140,7 +142,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
           <p className="text-gray-500 mb-4 md:mb-0">
-            © {currentYear} Integridad Corp. Todos los derechos reservados. Ciudad de México, México.
+            © {currentYear} Hotel Copantl. Todos los derechos reservados. San Pedro Sula, Honduras.
           </p>
 
           <div className="flex items-center space-x-6">
@@ -160,7 +162,7 @@ const Footer = () => {
         {/* Tech Credits */}
         <div className="text-center mt-8 pt-6 border-t border-gray-800">
           <p className="text-xs text-gray-600">
-            Powered by React + TypeScript + Tailwind CSS + Integridad Corp Innovation
+            Powered by React + TypeScript + Tailwind CSS + Copantl Innovation
           </p>
         </div>
       </div>

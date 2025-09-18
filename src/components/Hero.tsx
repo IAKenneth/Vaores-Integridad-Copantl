@@ -21,26 +21,26 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-amber-400 via-white to-yellow-400 bg-clip-text text-transparent leading-tight">
-            INTEGRIDAD CORP
+            COPANTL
           </h1>
           
           <div className={`text-xl md:text-2xl mb-4 font-light ${
             isDarkMode ? 'text-amber-300' : 'text-amber-600'
           }`}>
-            <span className="typing-animation">VALORES CORPORATIVOS FUTURISTAS</span>
+            <span className="typing-animation">HOTEL & CONVENTION CENTER</span>
           </div>
           
           <p className={`text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed ${
             isDarkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>
-            Fortalece tus valores corporativos a través de experiencias gaming futuristas. 
-            Transformamos el aprendizaje de principios éticos en aventuras interactivas memorables.
+            Descubre la excelencia hotelera del futuro a través de una experiencia interactiva 
+            única que combina hospitalidad de clase mundial con tecnología de vanguardia.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <button className="group bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 flex items-center space-x-2">
               <Play className="w-5 h-5" />
-              <span>INICIAR AVENTURA</span>
+              <span>EXPLORAR HOTEL</span>
             </button>
             
             <button className={`group border-2 border-amber-500 hover:border-amber-400 font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:bg-amber-500/10 flex items-center space-x-2 ${
@@ -49,16 +49,16 @@ const Hero: React.FC<HeroProps> = ({ isDarkMode }) => {
                 : 'text-amber-600 hover:text-amber-800'
             }`}>
               <Zap className="w-5 h-5" />
-              <span>NUESTROS VALORES</span>
+              <span>NUESTROS SERVICIOS</span>
             </button>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {[
-              { number: "100%", label: "Integridad" },
-              { number: "∞", label: "Valores" },
-              { number: "2025", label: "Futuro" }
+              { number: "5★", label: "Excelencia" },
+              { number: "24/7", label: "Servicio" },
+              { number: "2025", label: "Innovación" }
             ].map((stat, index) => (
               <div key={index} className="text-center group">
                 <div className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
