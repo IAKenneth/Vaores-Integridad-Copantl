@@ -6,25 +6,25 @@ const About = () => {
     {
       icon: <Cpu className="w-8 h-8" />,
       title: "Tecnología Futurista",
-      description: "Utilizamos las últimas innovaciones para crear experiencias inmersivas que conectan valores con tecnología de vanguardia."
+      description: "Integramos IA, realidad virtual y gamificación para crear experiencias de aprendizaje de valores verdaderamente transformadoras."
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      title: "Alcance Global",
-      description: "Nuestra plataforma trasciende fronteras, llevando valores universales a través de experiencias digitales innovadoras."
+      title: "Impacto Global",
+      description: "Transformamos organizaciones en todo el mundo, fortaleciendo culturas corporativas basadas en valores sólidos y principios éticos."
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Aprendizaje Dinámico",
-      description: "Metodologías interactivas que transforman conceptos abstractos en experiencias concretas y memorables."
+      title: "Metodología Revolucionaria",
+      description: "Convertimos conceptos éticos abstractos en experiencias tangibles y memorables a través de narrativas interactivas."
     }
   ];
 
   const stats = [
-    { number: "2025", label: "Año de Fundación", color: "from-cyan-400 to-blue-500" },
-    { number: "100K+", label: "Usuarios Activos", color: "from-purple-400 to-pink-500" },
-    { number: "95%", label: "Satisfacción", color: "from-green-400 to-teal-500" },
-    { number: "∞", label: "Innovación", color: "from-orange-400 to-red-500" }
+    { number: "2024", label: "Año de Fundación", color: "from-cyan-400 to-blue-500" },
+    { number: "50K+", label: "Profesionales Formados", color: "from-purple-400 to-pink-500" },
+    { number: "98%", label: "Efectividad", color: "from-green-400 to-teal-500" },
+    { number: "∞", label: "Valores Fortalecidos", color: "from-orange-400 to-red-500" }
   ];
 
   return (
@@ -33,7 +33,7 @@ const About = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-6">
-            SOBRE INTEGRIDAD CORP
+            SOBRE NOSOTROS
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Pioneros en la fusión de valores corporativos con experiencias gaming futuristas. 
@@ -53,12 +53,12 @@ const About = () => {
                 <p className="text-gray-300 leading-relaxed mb-6">
                   En Integridad Corp, creemos que los valores no son solo conceptos abstractos, 
                   sino principios vivos que deben experimentarse, practicarse y fortalecerse 
-                  constantemente.
+                  constantemente a través de metodologías innovadoras.
                 </p>
                 <p className="text-gray-300 leading-relaxed">
-                  A través de la gamificación futurista, transformamos el aprendizaje de valores 
-                  en una experiencia emocionante que combina entretenimiento con crecimiento personal 
-                  y profesional.
+                  Utilizamos la gamificación y tecnologías emergentes para crear experiencias 
+                  inmersivas que fortalecen la integridad, honestidad, respeto y responsabilidad 
+                  en el entorno corporativo del siglo XXI.
                 </p>
               </div>
 
@@ -69,7 +69,7 @@ const About = () => {
                 <p className="text-gray-300 leading-relaxed">
                   Convertirnos en la plataforma líder mundial para el desarrollo de valores 
                   corporativos a través de experiencias digitales immersivas, estableciendo 
-                  un nuevo estándar en la educación empresarial del futuro.
+                  un nuevo paradigma en la formación ética empresarial del futuro.
                 </p>
               </div>
             </div>
@@ -125,9 +125,9 @@ const About = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {[
-                { role: "CEO & Visionario", name: "Alex Chen", specialty: "Estrategia Futurista" },
-                { role: "CTO & Arquitecto", name: "Maya Rodriguez", specialty: "Innovación Tecnológica" },
-                { role: "CPO & Diseñador", name: "Jordan Kim", specialty: "Experiencia Usuario" }
+                { role: "CEO & Fundador", name: "Dr. Elena Vásquez", specialty: "Ética Empresarial" },
+                { role: "CTO & Innovador", name: "Ing. Carlos Mendoza", specialty: "Gamificación Avanzada" },
+                { role: "CPO & Estratega", name: "Lic. Ana Torres", specialty: "Desarrollo Organizacional" }
               ].map((member, index) => (
                 <div key={index} className="group">
                   <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm border border-gray-700 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-500 hover:transform hover:scale-105">

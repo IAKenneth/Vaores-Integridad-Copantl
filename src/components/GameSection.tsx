@@ -32,16 +32,16 @@ const GameSection = () => {
   const keys = useRef({ space: false });
 
   const motivationalMessages = [
-    "¡La EXCELENCIA es nuestro estándar!",
-    "¡HOSPITALIDAD en cada detalle!",
-    "¡La CALIDAD nos distingue!",
-    "¡SERVICIO excepcional siempre!",
-    "¡La INNOVACIÓN nos impulsa!",
-    "¡COMPROMISO con la satisfacción!",
-    "¡PROFESIONALISMO en cada acción!",
-    "¡La CALIDEZ humana nos define!",
-    "¡TRADICIÓN y modernidad unidos!",
-    "¡COPANTL, tu hogar lejos de casa!"
+    "¡La INTEGRIDAD es nuestro fundamento!",
+    "¡HONESTIDAD en cada decisión!",
+    "¡La TRANSPARENCIA nos distingue!",
+    "¡RESPETO hacia todos siempre!",
+    "¡La RESPONSABILIDAD nos impulsa!",
+    "¡COMPROMISO con la excelencia!",
+    "¡ÉTICA en cada acción!",
+    "¡Los VALORES nos definen!",
+    "¡PRINCIPIOS sólidos siempre!",
+    "¡INTEGRIDAD CORP, valores del futuro!"
   ];
 
   // Audio context for sounds
@@ -304,10 +304,10 @@ const GameSection = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent mb-4">
-            COPANTL ADVENTURE GAME
+            INTEGRIDAD ADVENTURE GAME
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Supera obstáculos mientras descubres la excelencia hotelera de Copantl. ¡Cada salto es una experiencia única!
+            Supera obstáculos mientras fortaleces tus valores corporativos. ¡Cada salto es un paso hacia la integridad!
           </p>
         </div>
 
@@ -374,8 +374,8 @@ const GameSection = () => {
                   <div className="text-center">
                     {gameState === 'menu' ? (
                       <div>
-                        <h3 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent mb-4">
-                          ¡BIENVENIDO A COPANTL!
+                        <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                          ¡BIENVENIDO A INTEGRIDAD CORP!
                         </h3>
                         <p className="text-gray-300 mb-6">Presiona ESPACIO o haz clic para saltar</p>
                         <button
@@ -420,7 +420,7 @@ const GameSection = () => {
                 🎮 <span className="text-amber-400">ESPACIO</span> o <span className="text-amber-400">CLIC</span> para saltar
               </p>
               <p className="text-sm text-gray-500">
-                Cada 200 puntos recibirás un mensaje motivacional sobre la excelencia de Copantl
+                Cada 200 puntos recibirás un mensaje motivacional sobre los valores de Integridad Corp
               </p>
             </div>
           </div>
